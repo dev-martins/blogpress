@@ -1,0 +1,19 @@
+<%- include('../../partials/header'); -%>
+    <div class="container">
+        <h1 class="mb-4 mt-4">Cadastrar Categorias</h1>
+
+        <div class="card">
+            <div class="card-header bg-primary"></div>
+            <div class="card-body">
+                <form method="POST" action="/admin/categories/store">
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Titulo da Categoria</label>
+                        <input type="text" class="form-control" id="category" name="title" placeholder="digite o titulo da categoria">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <%- include('../../partials/footer'); -%>

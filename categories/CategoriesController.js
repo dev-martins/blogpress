@@ -1,12 +1,23 @@
 const express = require("express");
 const router = express.Router();
+const Category = require('./Category');
+const slugify = require('slugify');
 
-router.get("/categories",(req,res) =>{
-    res.send("rota de categorias");
+router.get("/admin/categories/new", (req, res) => {
+    res.render("admin/categories/new");
 });
 
-router.get("/admin/categories/new",(req,res) =>{
-    res.send("rota para criar nova categoria");
-});
+router.post('/admin/categories/store', (req, res) => {
+    if (req.body.title) {
+        Category.create({
+            title: req.body.title,
+            slug: slugify(req.body.title)
+        });
+        res.redirect("/admin/categories/new");
+    } else {
+        res.redirect("/admin/categories/new");
+    }
+})
+
 
 module.exports = router;
