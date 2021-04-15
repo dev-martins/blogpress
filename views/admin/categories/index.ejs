@@ -1,0 +1,39 @@
+<%- include('../../partials/header'); -%>
+    <div class="container">
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>Categorias</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% categories.forEach(category=> { %>
+                            <tr>
+                                <th scope="row">
+                                    #
+                                </th>
+                                <td><%= category.title %></td>
+                                <td><%= category.slug %></td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group"
+                                        aria-label="Basic mixed styles example">
+                                        <a href="/edit/<%= category.id %>" type="button" class="btn btn-success">Editar</a>
+                                        <a href="/remove/<%= category.id %>" type="button" class="btn btn-danger">Remover</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <%})%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <%- include('../../partials/footer'); -%>

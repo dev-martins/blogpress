@@ -3,6 +3,12 @@ const router = express.Router();
 const Category = require('./Category');
 const slugify = require('slugify');
 
+router.get("/admin/categories/index", (req, res) => {
+    Category.findAll().then(categories => {
+        res.render('admin/categories/index',{categories:categories})
+    })
+});
+
 router.get("/admin/categories/new", (req, res) => {
     res.render("admin/categories/new");
 });
