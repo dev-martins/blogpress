@@ -38,9 +38,7 @@
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group"
                                         aria-label="Basic mixed styles example">
-                                        <form method="POST" action="/edit/<%= category.id %>">
-                                            <button type="submit" class="btn btn-success btn-sm">Editar</button>
-                                        </form>
+                                            <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-success btn-sm">Editar</a>
                                         <form method="POST" action="/admin/categories/destroy" onsubmit="confirmDelete(event,this)">
                                             <input type="hidden" value="<%= category.id %>" name="id" />
                                             <button type="submit" class="btn btn-danger btn-sm">Remover</button>

@@ -30,6 +30,16 @@ router.post('/admin/categories/store', (req, res) => {
 })
 
 /**
+ * editar categoria
+ */
+
+router.get('/admin/categories/edit/:id', (req, res) => {
+    Category.findByPk(req.params.id).then(category => {
+        res.render("admin/categories/new", { category: category });
+    })
+})
+
+/**
  * remover categoria
  */
 
