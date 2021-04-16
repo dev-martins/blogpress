@@ -10,11 +10,13 @@
             </div>
             <div class="card-body">
                 <% if (locals.category) { %>
-                    <form method="POST" action="/admin/categories/store">
+                    <form method="POST" action="/admin/categories/update">
                         <div class="mb-3">
                             <label for="category" class="form-label">Titulo da Categoria</label>
-                            <input type="text" class="form-control" id="category" name="title" value="<%= category.title %>"
-                                placeholder="digite o titulo da categoria">
+                            <input type="text" class="form-control" id="category" name="title"
+                                value="<%= category.title %>" placeholder="digite o titulo da categoria">
+                            <input type="hidden" class="form-control" id="category" name="id"
+                                value="<%= category.id %>" />
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>

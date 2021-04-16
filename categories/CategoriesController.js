@@ -39,6 +39,23 @@ router.get('/admin/categories/edit/:id', (req, res) => {
     })
 })
 
+router.post('/admin/categories/update', (req, res) => {
+    if (req.body.title) {
+        Category.update({
+            title: req.body.title,
+            slug:slugify(req.body.title)
+        },
+            {
+                where: {
+                    id: req.body.id
+                }
+            }
+        ).then(()=>{
+            res.redirect("/admin/categories/index");
+        })
+    }
+})
+
 /**
  * remover categoria
  */

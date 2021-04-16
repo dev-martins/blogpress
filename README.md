@@ -10,3 +10,4 @@ Esse projeto foi desenvolvido através do curso [Formação Node](https://www.ud
  5. Sequelize
  6. Bootstrap
  7. Mysql
+ 8. Slugify
