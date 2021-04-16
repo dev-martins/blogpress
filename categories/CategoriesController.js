@@ -3,12 +3,16 @@ const router = express.Router();
 const Category = require('./Category');
 const slugify = require('slugify');
 
+
 router.get("/admin/categories/index", (req, res) => {
     Category.findAll().then(categories => {
-        res.render('admin/categories/index',{categories:categories})
+        res.render('admin/categories/index', { categories: categories })
     })
 });
 
+/**
+ * criar nova categoria
+ */
 router.get("/admin/categories/new", (req, res) => {
     res.render("admin/categories/new");
 });
@@ -19,9 +23,24 @@ router.post('/admin/categories/store', (req, res) => {
             title: req.body.title,
             slug: slugify(req.body.title)
         });
-        res.redirect("/admin/categories/new");
+        res.redirect("/admin/categories/index");
     } else {
-        res.redirect("/admin/categories/new");
+        res.redirect("/admin/categories/index");
+    }
+})
+
+/**
+ * remover categoria
+ */
+
+router.post('/admin/categories/destroy', (req, res) => {
+    if (req.body.id) {
+        Category.destroy({
+            where: {
+                id: req.body.id
+            }
+        })
+        res.redirect("/admin/categories/index");
     }
 })
 
