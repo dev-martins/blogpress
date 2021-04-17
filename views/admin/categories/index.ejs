@@ -36,15 +36,13 @@
                                     <%= category.slug %>
                                 </td>
                                 <td>
-                                    <div class="btn-group btn-group-sm" role="group"
-                                        aria-label="Basic mixed styles example">
-                                            <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-success btn-sm">Editar</a>
-                                        <form method="POST" action="/admin/categories/destroy" onsubmit="confirmDelete(event,this)">
-                                            <input type="hidden" value="<%= category.id %>" name="id" />
-                                            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-                                        </form>
-
-                                    </div>
+                                    <a href="/admin/categories/edit/<%= category.id %>"
+                                        class="btn btn-success btn-sm" style="display: inline;">Editar</a>
+                                    <form style="display: inline;" method="POST" action="/admin/categories/destroy"
+                                        onsubmit="confirmDelete(event,this)">
+                                        <input type="hidden" value="<%= category.id %>" name="id" />
+                                        <button type="submit" class="btn btn-warning btn-sm text-white">Remover</button>
+                                    </form>
                                 </td>
                             </tr>
                             <%})%>
@@ -54,12 +52,12 @@
         </div>
     </div>
     <script>
-        function confirmDelete(event,form){
+        function confirmDelete(event, form) {
             event.preventDefault();
             let decision = confirm("Deseja remover a categoria?");
-            if(decision){
+            if (decision) {
                 form.submit();
-            }else{
+            } else {
 
             }
         }
