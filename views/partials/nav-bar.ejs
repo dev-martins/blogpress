@@ -7,16 +7,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/categories/index">Categorias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/admin/categories/new">Nova Categoria</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/admin/articles/new">Novo Artigo</a>
-                </li>
+                <% if (locals.categories) { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Category
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <% categories.forEach(category=> { %>
+                                <li><a class="dropdown-item border-bottom border-1"
+                                        href="/category/<%= category.slug %>">
+                                        <%= category.title %>
+                                    </a></li>
+                                <%})%>
+                        </ul>
+                    </li>
+                    <% } %>
+                        <li>
+                            <a class="nav-link active" aria-current="page" href="/admin/categories/index">Categorias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/admin/articles/index">Artigos</a>
+                        </li>
             </ul>
         </div>
+
     </div>
 </nav>

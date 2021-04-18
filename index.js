@@ -8,6 +8,7 @@ const connection = require('./database/database');
  */
 const categoriesController = require("./categories/CategoriesController")
 const articlesController = require("./articles/ArticlesController")
+const homeController = require('./home/homeController')
 
 /**
  * import models
@@ -27,18 +28,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // conexão
-connection.authenticate().then(()=>{
+connection.authenticate().then(() => {
     console.log('Conexão bem sucedida!')
-}).catch((error)=>{
+}).catch((error) => {
     console.log(error);
 })
 
-app.get('/', (resq, resp) => {
-    resp.render("index");
-})
-
-app.use('',categoriesController);
-app.use('',articlesController);
+app.use('', homeController);
+app.use('', categoriesController);
+app.use('', articlesController);
 
 app.listen(8080, () => {
     console.log("servidor rodando...");

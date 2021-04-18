@@ -2,30 +2,47 @@
     <div class="container">
         <div class="card mt-4">
             <div class="card-header">
-                <% if (locals.category) { %>
+                <% if (locals.article) { %>
                     <h4>Editar Artigo</h4>
                     <% }else{ %>
                         <h4>Novo Artigo</h4>
                         <% } %>
             </div>
             <div class="card-body">
-                <% if (locals.category) { %>
-                    <form method="POST" action="/admin/categories/update">
+                <% if (locals.article) { %>
+                    <form method="POST" action="/admin/articles/update">
                         <div class="mb-3">
-                            <label for="category" class="form-label">Titulo do Artigo</label>
-                            <input type="text" class="form-control" id="category" name="title"
-                                value="<%= category.title %>" placeholder="digite o titulo do artigo">
-                            <input type="hidden" class="form-control" id="category" name="id"
-                                value="<%= category.id %>" />
+                            <label for="article" class="form-label">Titulo do Artigo</label>
+                            <input type="text" class="form-control mb-4" id="article" name="title"
+                                value="<%= article.title %>" placeholder="digite o titulo do artigo">
+                            <select class="form-select mb-4" aria-label="Default select example" name="categoryId">
+                                <option value="" disabled selected>Selecione uma categoria</option>
+                                <% categories.forEach(category=> { %>
+                                    <option <%= category.id == article.categoryId ? "selected" : "" %> value="<%= category.id %>">
+                                        <%= category.title %>
+                                    </option>
+                                    <%})%>
+                            </select>
+                            <input type="hidden" class="form-control" id="article" name="id"
+                                value="<%= article.id %>" />
+                            <textarea class="form-control" name="body"><%= article.body %></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
                     <% }else{ %>
-                        <form method="POST" action="/admin/categories/store">
+                        <form method="POST" action="/admin/articles/store">
                             <div class="mb-3">
-                                <label for="category" class="form-label">Titulo do Artigo</label>
-                                <input type="text" class="form-control mb-4" id="category" name="title"
+                                <label for="article" class="form-label">Titulo do Artigo</label>
+                                <input type="text" class="form-control mb-4" id="article" name="title"
                                     placeholder="digite o titulo do artigo">
+                                <select class="form-select mb-4" aria-label="Default select example" name="categoryId">
+                                    <option value="" disabled selected>Selecione uma categoria</option>
+                                    <% categories.forEach(category=> { %>
+                                        <option value="<%= category.id %>">
+                                            <%= category.title %>
+                                        </option>
+                                        <%})%>
+                                </select>
                                 <textarea class="form-control" name="body"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Cadastrar</button>
@@ -38,7 +55,8 @@
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            language:'pt_BR',
+            language: 'pt_BR',
+            height: 600,
             selector: 'textarea', // change this value according to your HTML
             plugins: [
                 'advlist autolink lists link image charmap print preview anchor',

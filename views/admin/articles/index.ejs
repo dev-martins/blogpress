@@ -1,0 +1,69 @@
+<%- include('../../partials/header'); -%>
+    <div class="container">
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Artigos: <%= articles.length %>
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/admin/articles/new" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">Category Id</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% articles.forEach(article=> { %>
+                            <tr>
+                                <th scope="row">
+                                    #
+                                </th>
+                                <td>
+                                    <%= article.title %>
+                                </td>
+                                <td>
+                                    <%= article.slug %>
+                                </td>
+                                <td>
+                                    <%= article.category.title %>
+                                </td>
+                                <td>
+                                    <a href="/admin/articles/edit/<%= article.id %>"
+                                        class="btn btn-success btn-sm" style="display: inline;">Editar</a>
+                                    <form style="display: inline;" method="POST" action="/admin/articles/destroy"
+                                        onsubmit="confirmDelete(event,this)">
+                                        <input type="hidden" value="<%= article.id %>" name="id" />
+                                        <button type="submit" class="btn btn-warning btn-sm text-white">Remover</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <%})%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function confirmDelete(event, form) {
+            event.preventDefault();
+            let decision = confirm("Deseja remover o artigo?");
+            if (decision) {
+                form.submit();
+            } else {
+
+            }
+        }
+    </script>
+    <%- include('../../partials/footer'); -%>

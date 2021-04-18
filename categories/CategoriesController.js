@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Category = require('./Category');
+const Article = require('../articles/Article');
 const slugify = require('slugify');
 
 
@@ -43,14 +44,14 @@ router.post('/admin/categories/update', (req, res) => {
     if (req.body.title) {
         Category.update({
             title: req.body.title,
-            slug:slugify(req.body.title)
+            slug: slugify(req.body.title)
         },
             {
                 where: {
                     id: req.body.id
                 }
             }
-        ).then(()=>{
+        ).then(() => {
             res.redirect("/admin/categories/index");
         })
     }
@@ -69,6 +70,27 @@ router.post('/admin/categories/destroy', (req, res) => {
         })
         res.redirect("/admin/categories/index");
     }
+})
+
+/**
+ * Buscar artigos por ategoria
+ */
+
+router.get('/category/:slug', (req, res) => {
+    Category.findOne({
+        where: {
+            slug: req.params.slug
+        },
+        include: [{ model: Article }]
+    }).then(category => {
+        if (category) {
+            Category.findAll().then(categories => {
+                res.render('index',{articles:category.articles,categories:categories})
+            })
+        } else {
+            res.redirect('/');
+        }
+    })
 })
 
 
