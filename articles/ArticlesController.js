@@ -23,12 +23,31 @@ router.get("/single/:slug", (req, res) => {
         }
     }).then(article => {
         Category.findAll().then(categories => {
-            res.render("article", { article: article,categories:categories });
+            res.render("article", { article: article, categories: categories });
         })
 
     })
 
 });
+
+router.get("/articles/page/:number", (req, res) => {
+    let page = req.params.number;
+    let offset = 0;
+    limit = 3;
+    
+    if(isNaN(page) || page == 1){
+        offset = 0
+    }else{
+        offset = (parseInt(page) * limit) -limit;
+    }
+
+    Article.findAndCountAll({
+        limit: limit,
+        offset:offset
+    }).then(articles => {
+        res.json(articles);
+    })
+})
 
 /**
  * página de criação de artigos

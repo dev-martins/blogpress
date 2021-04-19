@@ -8,7 +8,7 @@ const connection = require('./database/database');
  */
 const categoriesController = require("./categories/CategoriesController")
 const articlesController = require("./articles/ArticlesController")
-const homeController = require('./home/homeController')
+const publicPagesController = require('./public-pages/PublicPagesController')
 
 /**
  * import models
@@ -34,7 +34,7 @@ connection.authenticate().then(() => {
     console.log(error);
 })
 
-app.use('', homeController);
+app.use('', publicPagesController);
 app.use('', categoriesController);
 app.use('', articlesController);
 
