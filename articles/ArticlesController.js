@@ -37,6 +37,11 @@ router.get("/articles/page/:number", (req, res) => {
     let page = req.params.number;
     let offset = 0;
     limit = 2;
+    paginate(page,offset,limit,req,res);
+    
+})
+
+function paginate(page,offset,limit,req,res){
 
     if (!isNaN(page) || page != 1) {
         offset = (parseInt(page) * limit) - limit;
@@ -58,13 +63,11 @@ router.get("/articles/page/:number", (req, res) => {
             next:next,
             articles:articles
         }
-// res.json(articles);
         Category.findAll().then(categories =>{
             res.render('public-pages/articles-paginate',{result:result,categories:categories});
         })
     })
-})
-
+}
 /**
  * página de criação de artigos
  */

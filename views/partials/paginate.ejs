@@ -1,10 +1,15 @@
 <nav aria-label="Page navigation example mb-4">
     <ul class="pagination pagination justify-content-center">
-        <li class="page-item <%= result.page == 1 ? 'disabled' : '' %>"><a class="page-link"
-                href="/articles/page/<%= result.page - 1 %>">Anterior</a></li>
 
-        <% for(i = 1; i <= result.perPage; i++){ %>
-            <li class="page-item"><a class="page-link" href="#"><%= i %></a></li>
+        <li class="page-item <%= result.page == 1 ? 'disabled' : '' %>"><a class="page-link"
+                href="<%= result.page - 1 == 1 ? '/' : '/articles/page/'+ (result.page - 1) %>">Anterior</a></li>
+        <li class="page-item"><a class="page-link" href="/">
+                1
+            </a></li>
+        <% for(i=2; i <=result.perPage; i++){ %>
+            <li class="page-item"><a class="page-link" href="/articles/page/<%= i %>">
+                    <%= i %>
+                </a></li>
             <%}%>
                 <li class="page-item <%= result.next == false ? 'disabled' : '' %>"><a class="page-link"
                         href="/articles/page/<%= result.page + 1 %>">Próximo</a></li>
