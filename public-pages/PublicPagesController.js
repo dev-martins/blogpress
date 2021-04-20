@@ -6,6 +6,7 @@ const Article = require('../articles/Article');
 router.get('/', (req, res) => {
     Article.findAll({
         include: [{ model: Category }],
+        limit:3,
         order:
             [
                 [

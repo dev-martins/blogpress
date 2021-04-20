@@ -30,22 +30,38 @@ router.get("/single/:slug", (req, res) => {
 
 });
 
+/**
+ * paginate
+ */
 router.get("/articles/page/:number", (req, res) => {
     let page = req.params.number;
     let offset = 0;
-    limit = 3;
-    
-    if(isNaN(page) || page == 1){
-        offset = 0
-    }else{
-        offset = (parseInt(page) * limit) -limit;
+    limit = 2;
+
+    if (!isNaN(page) || page != 1) {
+        offset = (parseInt(page) * limit) - limit;
     }
 
     Article.findAndCountAll({
         limit: limit,
-        offset:offset
+        offset: offset
     }).then(articles => {
-        res.json(articles);
+
+        var next = true;
+        if (offset + limit >= articles.count) {
+            next = false
+        }
+
+        let result = {
+            perPage: Math.round(articles.count / limit),
+            page:parseInt(page),
+            next:next,
+            articles:articles
+        }
+// res.json(articles);
+        Category.findAll().then(categories =>{
+            res.render('public-pages/articles-paginate',{result:result,categories:categories});
+        })
     })
 })
 
