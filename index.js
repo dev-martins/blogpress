@@ -9,6 +9,7 @@ const connection = require('./database/database');
 const categoriesController = require("./categories/CategoriesController")
 const articlesController = require("./articles/ArticlesController")
 const publicPagesController = require('./public-pages/PublicPagesController')
+const usersController = require('./users/UsersController')
 
 /**
  * import models
@@ -16,6 +17,7 @@ const publicPagesController = require('./public-pages/PublicPagesController')
 
 const Article = require("./articles/Article");
 const Category = require("./categories/Category");
+const User = require("./users/User");
 
 // view engina
 app.set('view engine', 'ejs');
@@ -37,6 +39,7 @@ connection.authenticate().then(() => {
 app.use('', publicPagesController);
 app.use('', categoriesController);
 app.use('', articlesController);
+app.use('', usersController);
 
 app.listen(8080, () => {
     console.log("servidor rodando...");

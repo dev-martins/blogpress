@@ -1,0 +1,69 @@
+<%- include('../../partials/header'); -%>
+    <div class="container">
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Usuários: <%= users.length %>
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/admin/users/new" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user=> { %>
+                            <tr>
+                                <th scope="row">
+                                    #
+                                </th>
+                                <td>
+                                    <%= user.first_name %>
+                                </td>
+                                <td>
+                                    <%= user.email %>
+                                </td>
+                                <td>
+                                    <img height="50px" src="../../..<%= user.image %>" alt="">
+                                </td>
+                                <td>
+                                    <a href="/admin/users/edit/<%= user.id %>"
+                                        class="btn btn-success btn-sm" style="display: inline;">Editar</a>
+                                    <form style="display: inline;" method="POST" action="/admin/users/destroy"
+                                        onsubmit="confirmDelete(event,this)">
+                                        <input type="hidden" value="<%= user.id %>" name="id" />
+                                        <button type="submit" class="btn btn-warning btn-sm text-white">Remover</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <%})%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function confirmDelete(event, form) {
+            event.preventDefault();
+            let decision = confirm("Deseja remover o usuário?");
+            if (decision) {
+                form.submit();
+            } else {
+
+            }
+        }
+    </script>
+    <%- include('../../partials/footer'); -%>

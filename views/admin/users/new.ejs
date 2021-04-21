@@ -1,0 +1,89 @@
+<%- include('../../partials/header'); -%>
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-header">
+                <% if (locals.user) { %>
+                    <h4>Novo usuário</h4>
+                    <% }else{ %>
+                        <h4>Editar Dados Usuário</h4>
+                        <% } %>
+
+            </div>
+            <div class="card-body">
+                <% if (locals.user) { %>
+                <form action="/admin/users/store" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">Primeiro Nome:</label>
+                            <input value="<%= user.first_name %>" name="first_name" type="text" class="form-control" id="first_name"
+                                placeholder="digite seu nome">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Nome Completo:</label>
+                            <input value="<%= user.last_name %>" name="last_name" type="text" class="form-control" id="last_name"
+                                placeholder="digite seu nome completo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input value="<%= user.email %>" name="email" type="email" class="form-control" id="email"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input  name="password" type="password" class="form-control" id="password"
+                                placeholder="******">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="image" class="form-label">Imagem:</label>
+                            <input value="<%= user.image %>" name="image" type="file" class="form-control" id="image"
+                                placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <img height="400px" src="<%= user.image %>" alt="">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success"> Salvar</button>
+                    <% }else{ %>
+                <form action="/admin/users/store" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">Primeiro Nome:</label>
+                            <input name="first_name" type="text" class="form-control" id="first_name"
+                                placeholder="digite seu nome">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Nome Completo:</label>
+                            <input name="last_name" type="text" class="form-control" id="last_name"
+                                placeholder="digite seu nome completo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input name="email" type="email" class="form-control" id="email"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input name="password" type="password" class="form-control" id="password"
+                                placeholder="******">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="image" class="form-label">Imagem:</label>
+                            <input name="image" type="file" class="form-control" id="image"
+                                placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success"> Salvar</button>
+                </form>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <%- include('../../partials/footer'); -%>

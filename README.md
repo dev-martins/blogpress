@@ -12,3 +12,5 @@ Esse projeto foi desenvolvido através do curso [Formação Node](https://www.ud
  7. Mysql
  8. Slugify
  9. TinyMCE
+ 10. Multer
+ 11. 
