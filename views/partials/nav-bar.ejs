@@ -23,15 +23,37 @@
                         </ul>
                     </li>
                     <% } %>
-                        <li>
-                            <a class="nav-link active" aria-current="page" href="/admin/categories/index">Categorias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admin/articles/index">Artigos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admin/users/index">Usuários</a>
-                        </li>
+                        <% if (locals.login) { %>
+                            <li>
+                                <a class="nav-link active" aria-current="page"
+                                    href="/admin/categories/index">Categorias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/admin/articles/index">Artigos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/admin/users/index">Usuários</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Olá <%= login.first_name %>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <li>
+                                        <a class="dropdown-item" href="/logout">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <% }else{ %>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                                </li>
+                                <% } %>
             </ul>
         </div>
 

@@ -6,7 +6,7 @@ const Article = require('../articles/Article');
 router.get('/', (req, res) => {
     let page = 1;
     let offset = 0;
-    limit = 2;
+    limit = 3;
 
     paginate(page,offset,limit,req,res);
 })

@@ -1,12 +1,8 @@
 <%- include('../../partials/header'); -%>
     <div class="container">
-        <div class="card mt-4">
+        <div class="card mt-5">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-3">
-                        <h4>Artigos: <%= articles.length %>
-                        </h4>
-                    </div>
                     <div class="col-md-6">
                         <a href="/admin/articles/new" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                     </div>
@@ -41,17 +37,23 @@
                                 </td>
                                 <td>
                                     <a href="/admin/articles/edit/<%= article.id %>"
-                                        class="btn btn-success btn-sm" style="display: inline;">Editar</a>
+                                        class="btn btn-success btn-sm" style="display: inline;"><i class="far fa-edit"></i></a>
                                     <form style="display: inline;" method="POST" action="/admin/articles/destroy"
                                         onsubmit="confirmDelete(event,this)">
                                         <input type="hidden" value="<%= article.id %>" name="id" />
-                                        <button type="submit" class="btn btn-warning btn-sm text-white">Remover</button>
+                                        <button type="submit" class="btn btn-warning btn-sm text-white"><i class="far fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
                             <%})%>
                     </tbody>
                 </table>
+            </div>
+            <div class="card-footer">
+                <div class="col-md-3">
+                    <h4>Artigos: <%= articles.length %>
+                    </h4>
+                </div>
             </div>
         </div>
     </div>

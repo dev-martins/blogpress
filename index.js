@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const connection = require('./database/database');
 
 /**
@@ -18,6 +19,16 @@ const usersController = require('./users/UsersController')
 const Article = require("./articles/Article");
 const Category = require("./categories/Category");
 const User = require("./users/User");
+const router = require('./categories/CategoriesController');
+
+// sessions
+let sess = {
+    secret: 'da39a3ee5e6b4b0d3255bfef95601890afd80709', cookie:{
+        maxAge: 1800000 // 30 minutos
+    }
+}
+
+app.use(session(sess))
 
 // view engina
 app.set('view engine', 'ejs');

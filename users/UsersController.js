@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('./User');
 const multer = require('multer');
+const AdminAuth = require('../middleware/middleware');
 const bcrypt = require('bcryptjs');
 
 const storage = multer.diskStorage({
@@ -15,21 +16,54 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
+
 router.get('/login', (req, res) => {
-    res.send('<h1>Login</h1>');
+    res.render('public-pages/auth/login');
 })
 
-router.get('/admin/users/index', (req, res) => {
+router.post('/authenticate', (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email,
+        }
+    }).then(user => {
+        if (user) {
+            let correct = bcrypt.compareSync(req.body.password, user.password);
+            if (correct) {
+                req.session.user = {
+                    id: user.id,
+                    email: user.email,
+                    first_name: user.first_name,
+                    last_name: user.last_name
+                }
+                res.redirect('/admin/articles/index');
+            } else {
+                res.redirect('/login');
+            }
+
+        } else {
+            res.redirect('/login');
+        }
+
+    })
+})
+
+router.get('/logout', (req, res) => {
+    req.session.user = "";
+    res.redirect('/');
+})
+
+router.get('/admin/users/index', AdminAuth, (req, res) => {
     User.findAll().then(users => {
-        res.render('admin/users/index', { users: users });
+        res.render('admin/users/index', { users: users, login: req.session.user });
     })
 })
 
 router.get('/admin/users/new', (req, res) => {
-    res.render('admin/users/new');
+    res.render('admin/users/new', { login: req.session.user });
 })
 
-router.post('/admin/users/store', upload.single('image'), (req, res) => {
+router.post('/admin/users/store', AdminAuth, upload.single('image'), (req, res) => {
     let img = req.file.path.replace('public', '');
     let password = req.body.password;
     User.findOne({
@@ -58,9 +92,9 @@ router.post('/admin/users/store', upload.single('image'), (req, res) => {
 
 })
 
-router.get('/admin/users/edit/:id', (req, res) => {
+router.get('/admin/users/edit/:id', AdminAuth, (req, res) => {
     User.findByPk(req.params.id).then(user => {
-        res.render("admin/users/new", { user: user });
+        res.render("admin/users/new", { user: user ,login: req.session.user});
     })
 })
 
@@ -69,7 +103,7 @@ router.get('/admin/users/edit/:id', (req, res) => {
  * remover usuário
  */
 
- router.post('/admin/users/destroy', (req, res) => {
+router.post('/admin/users/destroy', AdminAuth, (req, res) => {
     if (req.body.id) {
         User.destroy({
             where: {
